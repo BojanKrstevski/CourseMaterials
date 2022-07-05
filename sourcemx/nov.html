@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #container {
+        border: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1000px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <button id="print">Print</button>
+    <script>
+      const randomColor = () => {
+        let n = (Math.random() * 0xfffff * 1000000).toString(16);
+        return "#" + n.slice(0, 6);
+      };
+      let container = document.getElementById("container");
+      for (let index = 0; index < 55000; index++) {
+        const element = document.createElement("div");
+        element.style.width = "3px";
+        element.style.height = "3px";
+        // element.style.backgroundColor="green"
+        element.className = "item";
+        element.onmouseleave = function () {
+          if (!element.style.backgroundColor) {
+            // element.style.backgroundColor = randomColor();
+           element.style.backgroundColor = 'black';
+          }
+        };
+        container.appendChild(element);
+      }
+
+      document.getElementById("print").addEventListener("click", () => {
+        let container = document.getElementById("container");
+        var a = window.open("", "", "height=500, width=500");
+        a.document.write("<html>");
+        a.document.write("<body > <h1>Div contents are <br>");
+        a.document.write(container.innerHTML);
+        a.document.write("</body></html>");
+        a.document.close();
+        a.print();
+      });
+    </script>
+  </body>
+</html>

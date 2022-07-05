@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      @keyframes heartbeat {
+        0% {
+          transform: scale(0.75);
+        }
+        20% {
+          transform: scale(1);
+        }
+        40% {
+          transform: scale(0.75);
+        }
+        60% {
+          transform: scale(1);
+        }
+        80% {
+          transform: scale(0.75);
+        }
+        100% {
+          transform: scale(0.75);
+        }
+      }
+      .pulse {
+        background-color: red;
+        width: 70px;
+        height: 70px;
+        /* animation: heartbeat 3s infinite; */
+      }
+    </style>
+
+    <style>
+      body {
+        background-color: rgb(233, 233, 233);
+      }
+      #container {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 538px;
+      }
+
+      .item {
+        background-color: white;
+        padding: 20px;
+        width: 208px;
+        height: 208px;
+        margin: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .item > * {
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+      let animals = [
+        {
+          name: "Blue Whales",
+          bpm: 8,
+          animDuration: 7.5,
+        },
+        {
+          name: "Elephants",
+          bpm: 30,
+          animDuration: 2,
+        },
+        {
+          name: "Horses",
+          bpm: 36,
+          animDuration: 1.6,
+        },
+        {
+          name: "Humans",
+          bpm: 75,
+          animDuration: 0.8,
+        },
+      ];
+
+      let container = document.getElementById("container");
+
+      for (const animal of animals) {
+        let item = document.createElement("div");
+        item.innerHTML = `
+            <div class="heart">
+                <div class="pulse"></div>
+            </div>
+            <h2 class="animal">${animal.name}</h2>
+            <div class="bpm">${animal.bpm} bpm</div>
+          `;
+        item.classList.add("item");
+        //  item.className += 'item'
+
+        item.getElementsByClassName(
+          "pulse"
+        )[0].style.animation = `heartbeat ${animal.animDuration}s infinite`;
+        container.appendChild(item);
+      }
+    </script>
+  </body>
+</html>

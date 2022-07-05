@@ -1,0 +1,11 @@
+{
+    "key" : "value",
+    "key1" : 5,
+    "key2" : true,
+    "key3" : false,
+    "key4" : null,
+    "key5" : {
+        "key" : "value",
+        "array" : ["stis"]
+    }
+}

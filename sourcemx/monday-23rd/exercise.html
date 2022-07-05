@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="name">Ime</label>
+    <input type="text" id="ime" /> <br />
+    <label for="name">Prezime</label>
+    <input type="text" id="prezime" /> <br />
+
+    <label for="name">Index</label>
+    <input type="text" id="index" /> <br />
+
+    <label for="name">Predmet</label>
+    <input type="text" id="predmet" /> <br />
+
+    <label for="name">Ocena</label>
+    <select name="ocena" id="ocena">
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+
+    <br />
+
+    <button id="validateButton" onclick="validiraj()">Validiraj</button>
+
+    <div id="validated" >
+        <!-- ✔️ ili ❌ -->
+    </div>
+
+    <button onclick="add()">Dodadi</button>
+    <br />
+    <br />
+
+    <table border="1" id="table" >
+      <tr id="headerRow">
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Index</th>
+        <th>Predmet</th>
+        <th>Ocena</th>
+        <th>Actions</th>
+      </tr>
+
+      
+    </table>
+
+    <script src="exercise.js"></script>
+  </body>
+</html>

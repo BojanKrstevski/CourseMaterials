@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script>
+      let util = {
+        plostina: function (a, b) {
+          return a * b;
+        },
+      };
+      class DomEl {
+        constructor(type, id) {
+          this.type = type;
+          this.id = id;
+          this.el = document.createElement(type);
+        }
+        method1() {
+          console.log("Hi");
+        }
+
+        get color() {
+          return this.el.style.backgroundColor;
+        }
+
+        set color(value) {
+          this.el.style.backgroundColor = value;
+        }
+
+        static defaultType = "div";
+
+        static sayHi() {
+          console.log("Hi");
+        }
+      }
+
+      let elem = new DomEl("button");
+      let elem1 = new DomEl("button");
+
+      class Kvadarat {
+        static plostina(a, b) {
+          return a * b;
+        }
+      }
+
+      let kvadrat = new Kvadarat(a, b);
+      kvadrat.calcP();
+
+      Kvadarat.plostina(a, b);
+
+      util.plostina(a, b);
+
+      console.log(DomEl.sayHi());
+      console.log(DomEl.defaultType);
+    </script> -->
+
+    <!-- <script>
+      class Animal {
+        constructor(name) {
+          this.name = name;
+        }
+        breathe() {
+          console.log(this.name + " can breathe");
+        }
+      }
+      function A(){}
+      class Dog extends Animal {
+        constructor(petname) {
+          super("Dog");
+          this.petname = petname;
+        }
+        bark() {
+          console.log(this.petname + "i can breathe");
+        }
+      }
+      class GoldenR extends Dog {
+        constructor() {}
+        isSmart() {
+          console.log("i am smart");
+        }
+      }
+
+
+      class Vraboten {
+        name
+        prezime
+
+        plata()
+        timeSchedule()
+
+      }
+
+      class Menager extends Vraboten {
+          odgovornosti()
+      }
+
+      let lion = new Animal("Lion");
+      let zebra = new Animal("Zebra");
+      
+      console.log(lion, zebra);
+      console.log(lion.breathe(), zebra.breathe());
+
+      let dog = new Dog("Sharko");
+
+      console.log(dog);
+      console.log(dog.name, dog.petname, dog.breathe(), dog.bark());
+    </script> -->
+
+    <!-- <script>
+      class DomEl {
+        constructor(type, text, onClickText) {
+          console.log("From constructor", this);
+          this.el = document.createElement(type);
+          this.onClickText = onClickText;
+          let elementNode = ocument.createElement(type);
+          this.arr = [1, 2, 3];
+          this.caller = "Mario";
+          this.printArray();
+          this.el.innerText = text;
+          elementNode.addEventListener("click", this.printArray.bind(this));
+        }
+
+        logToConsole() {
+          console.log(this);
+          console.log(this.onClickText);
+        }
+
+        printArray() {
+          this.arr.forEach(() => {
+            console.log(+" called " + item);
+          });
+        }
+
+        addToDom() {
+          document.body.append(this.el);
+        }
+      }
+
+      let newEl = new DomEl(
+        "button",
+        "Novo Kopce",
+        "Zdravo jas sum novo kopce"
+      );
+      console.log(newEl);
+      newEl.addToDom();
+
+      let obj20 = {
+        niza: [1, 2, 3],
+        print: function () {
+          this.niza.forEach(function (item) {
+            console.log(this);
+            console.log(item);
+          }, this);
+
+          this.niza.filter();
+        },
+      };
+
+       (a)  => {
+          return {}
+      }
+      
+      [1, 2].map((a) => ({  }));
+
+
+
+
+
+
+
+      localStorage
+      sessionStorage
+      cookies
+
+
+      
+
+
+
+    </script> -->
+
+    <script>
+        window.a = 5
+
+        niza= localStorage.getItem('nizaState')
+
+        niza.push({})
+      
+
+      localStorage;
+
+      localStorage.setItem('key', 'value')
+
+      sessionStorage;
+
+      cookies;
+
+
+
+    </script>
+  </body>
+</html>

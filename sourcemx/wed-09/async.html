@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      const axios = { get: function () {} };
+    </script>
+  </head>
+  <body>
+    <!-- Asynchronous JavaScript And XML -->
+    <!-- <button onclick="getData()">GET call</button> -->
+    <button onclick="postData()">POST call</button>
+    <button onclick="getData()">GET call</button>
+
+    <script>
+      function makeHTTPReq(method, url, data) {
+        const p = new Promise((resolve, reject) => {
+          let xhr = new XMLHttpRequest();
+          // GET  POST
+          xhr.open(method, url);
+          xhr.responseType = "json";
+          if (data) {
+            xhr.setRequestHeader("Content-Type", "application/json");
+          }
+          xhr.onload = function () {
+            if (xhr.status >= 400) {
+              console.log("Error", xhr.status);
+              console.log(xhr.response);
+              reject(xhr.response);
+            } else {
+              console.log("Done", xhr.status);
+              console.log(xhr.response);
+              resolve({ error: xhr.status, data: xhr.response });
+            }
+          };
+
+          // xhr.onreadystatechange
+          xhr.onerror = function () {
+            console.log("error", xhr.response);
+          };
+
+          xhr.send(JSON.stringify(data));
+          console.log(xhr);
+        });
+        return p;
+      }
+
+      const getData = () => {
+        makeHTTPReq("GET", "https://reqres.in/api/users")
+          .then((data) => {
+            console.log("Uspesno zemena data ", data);
+            // DOM manipulation
+          })
+          .catch(({ error, data }) => {
+            console.log("Nespesno zemena data zaradi", error);
+          });
+      };
+
+      const postData = () => {
+        makeHTTPReq("POST", "https://reqres.in/api/login", {
+          email: "eve.holt@reqres.in",
+          password: "cityslicka",
+        })
+          .then((data) => {
+            console.log("Uspesno zemena data ", data);
+            // DOM manipulation
+          })
+          .catch(({ error, data }) => {
+            console.log("Nespesno zemena data zaradi", error, data);
+          });
+      };
+
+      //   getData();
+      // postData();
+
+      // xhr.onreadystatechange = function () {
+      //   if (xhr.readyState === 4) {
+      //     if (xhr.status === 200) {
+      //       //change dom
+      //       // document.body.innerHTML += `<div> First name : ${podatok.data[0].first_name} </div<>`
+      //     } else {
+      //       handleFailure();
+      //     }
+      //   } else {
+      //     handleFailure();
+      //   }
+      // };
+
+      $("#btn").on("click", () => {
+        $.getJSON({
+          url: "https://api.github.com/users/mariokrstevski",
+          success: (user) => {
+            $.getJSON({
+              url: "https://api.location" + user.location,
+              success: (weather) => {
+                handleWeather(weather);
+              },
+              error: handleFailure,
+            });
+          },
+          error: handleFailure,
+        });
+      });
+
+      function onSubmit() {
+        const userPromise = getUser("mariokrstevski");
+        userPromise.then((user) => {
+          const weatherP = getWeather(user.location);
+          weatherP.then((weather) => {
+            successHandler(user, weather);
+          });
+          weatherP.catch(handleFailure);
+        });
+        userPromise.catch(handleFailure);
+      }
+
+      async function handleSubmit() {
+        try {
+          const user = await getUser("mariokrstevski");
+          const weather = await getWeather(user.location);
+          successHandler(user, weather);
+        } catch (e) {
+          errorHandler(e);
+        }
+      }
+
+
+
+  
+     fetch('https://reqres.in/api/users',{
+       method: "GET"
+     })
+
+
+
+
+
+      function getUser(user) {
+        return new Promise((res, rej) => {
+          $.getJSON({
+            url: "https://api.github.com/users/" + user,
+            success: res,
+            error: rej,
+          });
+        });
+      }
+    </script>
+
+    <script>
+      // let promise = new Promise(function(resolve, reject){
+      //   let status = 201
+
+      //   if(status === 200){
+      //     resolve('Its ok')
+      //   } else {
+      //     reject('its not ok')
+      //   }
+      // })
+
+      // {then:, catch:}
+      // promise.then((data)=>{console.log(data)}).catch((error)=>{console.log(error)})
+    </script>
+  </body>
+</html>

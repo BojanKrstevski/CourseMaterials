@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="username">Username: eve.holt@reqres.in </label>
+    <input type="text" name="username-test" id="username" />
+
+    <br />
+
+    <label for="password">Password: cityslicka</label>
+    <input type="password" name="password-test" id="password" />
+
+    <br />
+
+    <button onclick="login()">Login</button>
+
+    <script>
+      let token = null;
+      function login() {
+        //  "eve.holt@reqres.in"
+        let username = document.getElementById("username").value;
+        // "cityslicka"
+        let password = document.getElementById("password").value;
+
+        let loginData = {
+          username,
+          password,
+        };
+
+        let login = fetch("https://reqres.in/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        });
+
+        login.then((notJSON) => notJSON.json()).then(handleSuccess);
+        login.catch(handleError);
+      }
+      function handleSuccess(data) {
+        console.log(data);
+        token = data.token;
+        // add html DOM for success 
+        document.body.append(token);
+      }
+
+      function handleError(error) {
+        console.log("Error", error);
+      }
+    </script>
+  </body>
+</html>

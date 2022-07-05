@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      *,
+      *:before,
+      *:after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        background: #066acd;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .container {
+        margin-top: 100px;
+        width: 40%;
+        min-width: 450px;
+        position: absolute;
+
+        background: white;
+        border-radius: 10px;
+      }
+      #newtask {
+        position: relative;
+        padding: 30px 20px;
+      }
+      #newtask input {
+        height: 45px;
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        border: 2px solid #d1d3d4;
+        padding: 12px;
+        color: #111111;
+        font-weight: 500;
+        position: relative;
+        border-radius: 5px;
+      }
+      #newtask input:focus {
+        outline: none;
+        border-color: #0d75ec;
+      }
+
+      #newtask button {
+        position: relative;
+        float: right;
+        width: 20%;
+        height: 45px;
+        border-radius: 5px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        background-color: #0d75ec;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        outline: none;
+      }
+      #tasks {
+        background-color: #ffffff;
+        padding: 30px 20px;
+        margin-top: 10px;
+        border-radius: 10px;
+        width: 100%;
+        position: relative;
+      }
+      .task {
+        background-color: #c5e1e6;
+        height: 50px;
+        margin-bottom: 8px;
+        padding: 5px 10px;
+        display: flex;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #939697;
+        cursor: pointer;
+      }
+      .task input {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        cursor: default;
+      }
+
+      .task input:focus {
+        background-color: transparent;
+        outline: none;
+        border: none;
+      }
+
+      .task span {
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+      }
+      .task button {
+        background-color: #0a2ea4;
+        color: #ffffff;
+        height: 100%;
+        /* width: 40px; */
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        outline: none;
+      }
+
+      .completed input{
+        text-decoration: line-through;
+        color: #555;
+      }
+
+      .buttons {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+      }
+
+      .buttons button {
+        padding: 6px 10px;
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="newtask">
+        <input
+          id="newtask-input"
+          type="text"
+          placeholder="Insert a new task.."
+        />
+        <button id="addButton">Add</button>
+      </div>
+      <div id="tasks"></div>
+    </div>
+
+    <script>
+      let tasksDiv = document.getElementById("tasks");
+      // check LS ? useit : []
+      let todos = [];
+
+      function generateID() {
+        return Math.random().toString().slice(3, 10);
+      }
+
+      function editTodo(element, id) {
+        let todoNode = document.getElementById(id);
+        let todoInput = todoNode.getElementsByTagName("input")[0];
+        todoInput.removeAttribute("readonly");
+        todoInput.focus();
+        todoInput.setSelectionRange(-1, -1);
+
+        todoInput.addEventListener("change", (event) => {
+          let todo = todos.find((todo) => todo.id === id);
+          // console.log(event, event.target.value, id, todo);
+          todo.text = event.target.value;
+          todoInput.setAttribute("readonly", true);
+        });
+
+        // todoInput.addEventListener("keyup", (event) => {
+        //   if (event.code === "Enter") {
+        //     let todo = todos.find((todo) => todo.id === id);
+        //     console.log(event, event.target.value, id, todo);
+        //     todo.text = event.target.value;
+        //     todoInput.setAttribute("readonly", true);
+        //   }
+        // });
+      }
+
+      function updateTodo(event) {
+        console.log("event", event);
+      }
+
+      function deleteTodo(element, id) {
+        element.parentNode.parentNode.remove();
+        // let todoNode = document.getElementById(id)
+        // todoNode.remove()
+        todos = todos.filter((todo) => todo.id !== id);
+      }
+
+      function markComplete(element, id) {
+        console.log(element,id)
+        let todoNode = document.getElementById(id);
+        todoNode.classList.toggle("completed");
+        let todo = todos.find((todo) => todo.id === id);
+        todo.isComplete = todoNode.className.includes("completed")
+          ? true
+          : false;
+      }
+
+      function addTask() {
+        let input = document.querySelector("#newtask-input");
+
+        if (input.value.length === 0) {
+          return;
+        }
+
+        let todo = {
+          isComplete: false,
+          text: input.value,
+          id: generateID(),
+        };
+
+        todos.push(todo);
+        //ADD to localstorage
+
+        let todoDiv = document.createElement("div");
+        todoDiv.classList.add("task");
+
+        todoDiv.id = todo.id;
+
+        todoDiv.innerHTML = `
+                <div id="taskname">
+                    <input onchange="updateTodo()" type="text" value="${input.value}" readonly />
+                </div>
+                <div class="buttons">
+                    <button onclick="deleteTodo(this,'${todo.id}')" class="delete">
+                    Delete
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button onclick="editTodo(this,'${todo.id}')" class="edit">
+                    Edit
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button onclick="markComplete(this,'${todo.id}')"  >
+                    Done?
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+        `;
+
+        tasksDiv.append(todoDiv);
+        input.value = "";
+      }
+
+      let addBtn = document.querySelector("#addButton");
+      addBtn.onclick = addTask;
+    </script>
+  </body>
+<!-- 
+  Read from API todos and show them Hint update homework to use this api?
+  Combine login and generate random userID + to continue to show todos from data
+  Explain rest + spread operator show let newVar = obj.method(), this will
+  change on newVar() movies API yify -->
+</html>

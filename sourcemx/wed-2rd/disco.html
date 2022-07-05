@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #container {
+        border: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1023px;
+      }
+
+      .default {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+        background-color: red;
+      }
+      .open {
+        width: 150px;
+        height: 150px;
+        background-color: black;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div id="flip" class="default">Hello user</div>
+    <button onclick="loginlogof()">Log in user</button>
+
+    <script>
+      function loginlogof() {
+        let c = document.getElementById("flip");
+        c.classList.toggle("open");
+      }
+
+      //   let user = "user";
+    </script>
+
+    <!-- <div id="container"></div>
+    <button onclick="ccolor('red')">Red</button>
+    <button onclick="ccolor('blue')">Blue</button>
+
+    <script>
+    let color = 'black'
+    function ccolor(arg){
+        color = arg
+    }
+      const randomColor = () => {
+        console.log("hi");
+        let n = (Math.random() * 0xfffff * 1000000).toString(16);
+        return "#" + n.slice(0, 6);
+      };
+      let changeColor = (event) => {
+        // console.log("Event ", event);
+        let el = event.target;
+        if (!el.style.backgroundColor) {
+          el.style.backgroundColor = color;
+        }
+      };
+      
+      let container = document.getElementById("container");
+
+      for (let index = 0; index < 500; index++) {
+        const el = document.createElement("div");
+        el.style.width = "10px";
+        el.style.height = "10px";
+        el.className = "item";
+        el.addEventListener("mousedown", changeColor);
+        container.appendChild(el);
+      }
+    </script> -->
+  </body>
+</html>

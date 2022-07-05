@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../wed-2rd/selectuser.js"></script>
+    <style>
+      .questions {
+        border: 1px solid black;
+        width: 1400px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .question-container {
+        margin: 6px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        height: 265px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="clearBoxes(this)">Clear</button>
+
+    <div class="questions"></div>
+
+    <button onclick="loadBoxes()">Start</button>
+    <script>
+      function clearBoxes() {
+        let qs = document.getElementsByClassName("questions")[0];
+        qs.innerHTML = "";
+      }
+      function loadBoxes() {
+        let correct;
+        function checkWinner(number, imgNode) {
+          if (correct) {
+            imgNode.style.border = `4px solid ${
+              correct === number ? "lightgreen" : "red"
+            }`;
+          }
+        }
+        let qs = document.getElementsByClassName("questions")[0];
+        for (let index = 0; index < 4; index++) {
+          let c = document.createElement("div");
+          c.className = "question-container";
+          let i = document.createElement("input");
+          let im = document.createElement("img");
+          im.height = "240";
+          im.style.objectFit = "fill";
+          //   im.width = "100%";
+          i.type = "text";
+          i.onchange = (e) => {
+            console.log("contents", e.target.value);
+            im.src = e.target.value;
+            im.onclick = () => {
+              console.log(window.event.altKey, window.event.which);
+              if (window.event.ctrlKey) {
+                correct = index + 1;
+              } else {
+                checkWinner(index + 1, im);
+              }
+            };
+            let divtext = document.createElement("div");
+            divtext.innerText = index + 1;
+            i.replaceWith(divtext);
+          };
+
+          c.appendChild(i);
+          c.appendChild(im);
+          qs.appendChild(c);
+        }
+      }
+    </script>
+    <script>
+      let char = niza[0];
+
+      console.log(" HI i am " + char.firstName + " I am " + char.age + "old");
+      char.isEvil = false;
+
+      char.setEvil = function () {
+        this.isEvil = this.age > 18 ? true : false;
+      };
+      char.introduce = function () {
+        console.log(" HI i am " + this.firstName + " I am " + this.age + "old");
+      };
+
+      function changeC(character) {
+        char.isEvil = false;
+        character.setEvil = function () {
+          this.isEvil = this.age > 18 ? true : false;
+        };
+        char.introduce = function () {
+          console.log(
+            " HI i am " + this.firstName + " I am " + this.age + "old"
+          );
+        };
+        return character;
+      }
+
+      let char = changeC(char[0])
+
+      niza.map(changeC)
+
+    </script>
+  </body>
+</html>

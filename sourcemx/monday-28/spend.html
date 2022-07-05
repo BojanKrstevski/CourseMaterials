@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        background-color: rgb(233, 233, 233);
+      }
+      #container {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 838px;
+      }
+
+      .item {
+        background-color: white;
+        padding: 20px;
+        width: 308px;
+        height: 100%;
+        margin: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .img {
+        width: 250px;
+        height: 250px;
+      }
+
+      .img img {
+        object-fit: fill;
+        width: 100%;
+        height: 100%;
+      }
+      .item > * {
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="money-value"></div>
+    <div id="container"></div>
+
+    <script>
+      let items = [
+        {
+          text: "Big Mac",
+          price: 2,
+          img: "https://neal.fun/spend/images/big-mac.jpg",
+        },
+        {
+          text: "Acre of Farmland",
+          price: 3000,
+          img: "https://neal.fun/spend/images/acre-of-farmland.jpg",
+        },
+        {
+          text: "Diamond Ring",
+          price: 10000,
+          img: "https://neal.fun/spend/images/diamond-ring.jpg",
+        },
+        {
+          text: "Apache Helicopter",
+          price: 31000000,
+          img: "https://neal.fun/spend/images/apache-helicopter.jpg",
+        },
+      ];
+
+      let money = 1000000000;
+      let purchases = [];
+
+      let moneyDivNode = document.getElementById("money-value");
+      moneyDivNode.innerHTML = parseMoneyFormat(money);
+      moneyDivNode.style.fontSize = "42px";
+      moneyDivNode.style.textAlign = "center";
+
+      let container = document.getElementById("container");
+      function parseMoneyFormat(amount) {
+        let dolari = Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+        return dolari;
+      }
+
+      function sell(node, itemText) {
+        // find item in items array
+        let item = items.find((itemInArr) => itemInArr.text === itemText);
+        // find item in purchases array (if found it means we already have bought this item once and object exists)
+        let alreadyPurchused = purchases.find(
+          (itemInArr) => itemInArr.name === itemText
+        );
+        // we know in html that after sellButton there is the input
+        let inputField = node.nextElementSibling;
+        if (alreadyPurchused && alreadyPurchused.count > 1) {
+          // update value inside array object
+          alreadyPurchused.count = alreadyPurchused.count - 1;
+          // reflect updated value on screen in the input field
+          inputField.value = alreadyPurchused.count;
+          // update price in memory and on screen
+          money = money + item.price;
+          moneyDivNode.innerHTML = parseMoneyFormat(money);
+        } else if (alreadyPurchused && alreadyPurchused.count === 1) {
+          // it means we have only 1 copy bought and if we sell we need to remove object from array, so we track index to know what to splice
+          let index = purchases.findIndex(
+            (itemInArr) => itemInArr.text === itemText
+          );
+          // remove object from array
+          purchases.splice(index, 1);
+          // reset input value on screen to 0
+          inputField.value = 0;
+          // update price in memory and on screen
+          money = money + item.price;
+          moneyDivNode.innerHTML = parseMoneyFormat(money);
+        }
+
+        makeReceit();
+      }
+      
+      function buy(node, itemText) {
+        // find item in items array
+        let item =   items.find((itemInArr) => itemInArr.text === itemText);
+
+        // check if we dont have money to do the potential purchase, then exit the function
+        if (money < item.price) {
+          return;
+        }
+
+        // getting here means we have enough money
+
+        // check if we already have bought this
+        let alreadyPurchused = purchases.find(
+          (itemInArr) => itemInArr.name === itemText
+        );
+        // we know from html that previously in html is the input field
+        let inputField = node.previousElementSibling;
+        if (alreadyPurchused) {
+          // update existing object count
+          alreadyPurchused.count = alreadyPurchused.count + 1;
+          // reflect updated value on screen in the input field
+          inputField.value = alreadyPurchused.count;
+        } else {
+          // getting here means we haven't bought this item before so we create new object in array
+          purchases.push({
+            name: item.text,
+            count: 1,
+          });
+
+          // update input value to 1
+          inputField.value = 1;
+        }
+
+        // update price in memory and on screen
+        money = money - item.price;
+        moneyDivNode.innerHTML = parseMoneyFormat(money);
+        makeReceit();
+      }
+
+      // TODO
+      function makeReceit() {}
+
+      for (const item of items) {
+        let itemNode = document.createElement("div");
+        itemNode.classList.add("item");
+        itemNode.innerHTML = `
+          <div class="img">
+            <img src="${item.img}" alt="" />
+          </div>
+          <h2 class="text">${item.text}</h2>
+          <div class="price">${parseMoneyFormat(item.price)}</div>
+          <div class="options">
+            <button onclick="sell(this, '${item.text}')"> Sell </button>
+            <input type="text" name="count" value="0" />
+            <button onclick="buy(this, '${item.text}')"> Buy </button>
+          </div>
+        `;
+        container.appendChild(itemNode);
+      }
+    </script>
+  </body>
+</html>

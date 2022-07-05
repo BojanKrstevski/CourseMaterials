@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let fingernails = "mustache";
+      let toes = fingernails;
+      let nose = "must" + "ache";
+
+      // Using our mental model create a diagram on paper to represent the code above
+
+      // going into the images folder, which image the closest to your diagram
+
+      // Now use this sketch (mm2.jpg) to answer these questions:
+      fingernails === toes;
+      toes === nose;
+      nose === fingernails;
+
+      // Sketch a diagram of variables and values after this snippet of code runs.
+
+      let tomato = {};
+      let oregano = tomato;
+      let potato = {};
+      tomato = {};
+
+      // Now use this sketch (mn3.jpg) to answer these questions:
+
+      //   Now use this sketch to answer these questions:
+
+      tomato === oregano;
+      oregano === potato;
+      potato === tomato;
+
+      // using mb1.jpg write code that when executed would lead to that diagram
+
+      //   using the mental model, make a sketch if you'd like and answer, will the message appear, write your explination why yes or no
+
+      let ticket = { id: 0 };
+      if (ticket === { id: 0 }) {
+        console.log("Bad ticket");
+      }
+
+      // how about in this code, will the message appear, write your explination why yes or no
+
+      let ticketId = 0;
+      if (ticketId === 0) {
+        console.log("Bad ticket");
+      }
+
+      // Can you tink of a different value rather than 0, that could cause a message to be printed, if yes what is it and why
+
+      let ticketId2; // = ???;
+      if (ticketId2 === 0) {
+        console.log("Bad ticket");
+      }
+
+      // use the mental model to make a sketch of a diagram that would represent this code
+
+      let tea = function () {
+        return 0 / 0;
+      };
+      let coffee = function () {
+        return 0 / 0;
+      };
+      let matcha = tea();
+      let latte = coffee();
+
+      // use mv4.jpg to tell us what the output would be
+
+      tea === coffee;
+      Object.is(tea, coffee);
+      matcha === latte;
+      Object.is(matcha, latte);
+    </script>
+  </body>
+</html>

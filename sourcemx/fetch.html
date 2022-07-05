@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      let filmovi = [];
+
+      function getMovies() {
+        fetch("https://yts.mx/api/v2/list_movies.json")
+          .then((dataStreamResponse) => {
+            return dataStreamResponse.json();
+          })
+          .then((jsonData) => {
+            filmovi = jsonData.data.movies;
+            // logika za DOM promeni
+
+            renderMovies(filmovi);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+
+      function renderMovies(arrayOfMovies) {
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index];
+        }
+        for (const movie of arrayOfMovies) {
+          console.log(movie.url);
+        }
+      }
+    </script>
+  </body>
+</html>

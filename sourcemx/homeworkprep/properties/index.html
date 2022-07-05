@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <div class="questions"></div>
+    <style>
+      .questions {
+        border: 1px solid black;
+        width: 1400px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .question-container {
+        margin: 20px;
+        border: 1px solid purple;
+
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        height: 265px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="loadBoxes()">Start</button>
+    <p id="text">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit autem
+      sequi, ex animi illum magnam, et fugit aperiam reprehenderit,
+      exercitationem quasi rem voluptate nam delectus pariatur vitae quidem vel!
+      Harum.
+    </p>
+
+    <textarea id="text2">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit autem
+        sequi, ex animi illum magnam, et fugit aperiam reprehenderit,
+        exercitationem quasi rem voluptate nam delectus pariatur vitae quidem vel!
+        Harum.
+      </textarea
+    >
+    <button onclick="makeBold()">B</button>
+    <button onclick="makeRed()">Color red</button>
+    <button onclick="alignRed()">Align Left</button>
+
+    <script>
+      function getSelectionText() {
+        var text = "";
+        if (window.getSelection) {
+          text = window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+          text = document.selection.createRange().text;
+        }
+        console.log("text", text);
+        return text;
+      }
+      function getS() {
+        let s = window.getSelection();
+        console.log("Selection", s);
+      }
+
+      function makeBold() {
+        console.log("hi");
+        getS();
+        getSelectionText();
+      }
+    </script>
+    <script>
+      //Sketch a diagram of variables and values after this snippet of code runs.
+      let ship1 = { name: "Rocinante" };
+
+      // Sketch a diagram of variables and values after this snippet of code runs.
+
+      let captain = "Jim";
+      let ship = { captain: captain };
+      captain = "Naomi";
+
+      function loadBoxes() {
+        let correct;
+
+        function checkWinner(number, imgNode) {
+          if (correct) {
+            imgNode.style.border = `4px solid ${
+              correct === number ? "lightgreen" : "red"
+            }`;
+          }
+        }
+        let qs = document.getElementsByClassName("questions")[0];
+        for (let index = 0; index < 4; index++) {
+          let c = document.createElement("div");
+          c.className = "question-container";
+          let i = document.createElement("input");
+          let im = document.createElement("img");
+          im.height = "240";
+          im.style.objectFit = "fill";
+          //   im.width = "100%";
+
+          i.type = "text";
+          i.onchange = (e) => {
+            console.log("contents", e.target.value);
+            im.src = e.target.value;
+            im.onclick = () => {
+              console.log(window.event.altKey, window.event.which);
+              if (window.event.ctrlKey) {
+                correct = index + 1;
+              } else {
+                checkWinner(index + 1, im);
+              }
+            };
+            i.remove();
+          };
+
+          c.appendChild(i);
+          c.appendChild(im);
+          qs.appendChild(c);
+        }
+      }
+
+      myObj.hasOwnProperty("property");
+      Object.hasOwn(myObj, "property");
+
+      if (!Object.hasOwn) {
+        Object.hasOwn = function hasOwn(obj, propName) {
+          return Object.prototype.hasOwnProperty.call(obj, propName);
+        };
+      }
+    </script>
+  </body>
+</html>
